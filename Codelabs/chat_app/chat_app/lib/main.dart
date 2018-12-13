@@ -34,6 +34,7 @@ class FriendlychatApp extends StatelessWidget {
 State is information that can be read synchronously when the widget is built and that might change during the lifetime of the widget.
 In Flutter, if you want to visually present stateful data in a widget, you should encapsulate this data in a State object.
 You can then associate your State object with a widget that extends the StatefulWidget class.
+Widgets like Scaffold and AppBar, are specific to Material Design apps.
 * */
 // Modify the ChatScreen class definition to extend StatefulWidget.
 class ChatScreen extends StatefulWidget {                     //modified
@@ -42,12 +43,39 @@ class ChatScreen extends StatefulWidget {                     //modified
 }
 
 // Add the ChatScreenState class definition in main.dart.
-class ChatScreenState extends State<ChatScreen> {                  //new
+//To manage interactions with the text field, it's helpful to use a TextEditingController object.
+//You'll use it for reading the contents of the input field,
+//and for clearing the field after the text message is sent.
+class ChatScreenState extends State<ChatScreen> {
+  final TextEditingController _textController = new TextEditingController();
   @override                                                        //new
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(title: new Text("Friendly chat")),
-
+      //The _buildTextComposer method returns a widget that encapsulates the text input field.
+      body: _buildTextComposer(), //new
     );
   }
+
+  // Add the following code in the ChatScreenState class definition.
+  //The following code snippet shows how you can define a private method called _buildTextComposer()
+  //that returns a Container widget with a configured TextField widget.
+  Widget _buildTextComposer() {
+    return new Container(
+      margin: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: new TextField(
+        controller: _textController,
+        onSubmitted: _handleSubmitted,
+        decoration: new InputDecoration.collapsed(
+            hintText: "Send a message"),
+      ),
+    );
+  }
+
+  //use the onSubmitted argument to provide a private callback method _handleSubmitted()
+  //Tip: Prefixing an identifier with an _ (underscore) makes it private to its class
+  void _handleSubmitted(String text) {
+    _textController.clear();
+  }
 }
+
