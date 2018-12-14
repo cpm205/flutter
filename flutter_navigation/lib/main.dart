@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+//To navigate between pages, you have a couple options:
+//1.Specify a Map of route names. (MaterialApp)
 void main() {
   runApp(new MaterialApp(
     home: new MyAppHome(), // becomes the route named '/'
