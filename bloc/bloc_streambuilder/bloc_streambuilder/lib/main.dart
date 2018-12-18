@@ -26,6 +26,9 @@ class MyApp extends StatelessWidget {
   }
 }
 
+/*The only reason why we are still using a StatefulWidget for the page,
+is simply because we need to release the StreamController, via the dispose method,
+ */
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
@@ -61,6 +64,10 @@ class _MyHomePageState extends State<MyHomePage> {
         title: new Text(widget.title),
       ),
       body: Center(
+      /*This is a big improvement since the fact of calling the setState() method,
+      forces the whole Widget (and any sub widgets) to rebuild.
+      Here, ONLY the StreamBuilder is rebuilt (and of course its children widgets);
+       */
         child: new StreamBuilder<int>(
           stream: _streamController.stream,
           initialData: 0,
