@@ -4,6 +4,9 @@ import '../blocs/movies_bloc.dart';
 import 'movie_detail.dart';
 import '../blocs/movie_detail_bloc_provider.dart';
 
+
+//The only reason why we are still using a StatefulWidget for the page,
+// is simply because we need to release the StreamController, via the dispose method,
 class MovieList extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -30,6 +33,7 @@ class MovieListState extends State<MovieList> {
       appBar: AppBar(
         title: Text('Popular Movies'),
       ),
+      //StreamBuilder is a Stateful Widget
       body: StreamBuilder(
         stream: bloc.allMovies,
         builder: (context, AsyncSnapshot<ItemModel> snapshot) {
